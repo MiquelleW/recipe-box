@@ -8,6 +8,18 @@ const postBtn = document.getElementById("post-btn");
 const postStatus = document.getElementById("post-status");
 const savedArea = document.getElementById("saved");
 
+const myDishes = [];
+const dishList = document.getElementById("my-dishes");
+
+function showMyDishes() {
+  dishList.textContent = "";
+  myDishes.forEach(function (name) {
+    const item = document.createElement("li");
+    item.textContent = name;
+    dishList.appendChild(item);
+  });
+}
+
 // GET - Fetch a Recipe
 async function getRecipe() {
   recipeArea.textContent = "";
@@ -94,6 +106,9 @@ async function addDish() {
     message.className = "alert alert-success";
     message.textContent = `Added ${newDish.name} as recipe #${newDish.id} (practice server: not really saved)`;
     savedArea.appendChild(message);
+
+    myDishes.push(newDish.name);
+    showMyDishes();
 
     dishInput.value = "";
   } catch (error) {
